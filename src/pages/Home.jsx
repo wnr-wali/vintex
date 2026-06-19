@@ -1,7 +1,11 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
 import { Coins, Palette, Package, Globe, Gift, Zap } from 'lucide-react';
 import { ABOUT_MAIN_IMAGE } from '../assets/images';
+import Reveal from '../components/Reveal';
+import Hero from '../components/Hero';
+import StaggerItem from '../components/StaggerItem';
+import CountUp from '../components/CountUp';
+import { staggerContainer, cardLift } from '../lib/motion';
 
 const PRODUCTS = [
   { img: 'https://images.unsplash.com/photo-1583845112203-29329902332e?w=600&q=80', name: 'Embroidered Towels', desc: 'Hotel-grade bath linen for hospitality & retail importers.', tag: 'Export Ready' },
@@ -25,74 +29,27 @@ export default function Home() {
   return (
     <div>
       {/* ════════════════════════════════════════════════════════════════
-          HERO — Mobile: stacked (text → image → stats bar)
-                 Desktop: side-by-side with floating stats on image
+          HERO — cinematic entrance + parallax (see components/Hero.jsx)
          ════════════════════════════════════════════════════════════════ */}
-      <section id="hero" className="relative flex flex-col md:grid md:grid-cols-2 bg-warm min-h-screen">
-
-        {/* ── Text panel ── */}
-        <div className="relative z-10 bg-warm flex flex-col justify-center px-6 pt-20 pb-8 md:pt-36 md:pb-24 md:pl-20 md:pr-16">
-          <div className="inline-flex items-center gap-2.5 text-[11px] tracking-[0.2em] uppercase text-gold font-bold mb-3 md:mb-5">
-            <span className="block w-8 h-px bg-gold flex-shrink-0"></span>
-            Est. in Lahore, Pakistan
-          </div>
-          
-          <h1 className="font-serif text-4xl md:text-6xl font-light leading-[1.1] text-forest mb-2 md:mb-3">
-            Where Craft Meets <br />
-            <em className="italic text-gold">Global Standards</em>
-          </h1>
-          
-          <p className="font-serif text-base md:text-xl font-light text-gold mb-3 md:mb-5 leading-relaxed italic">
-            The Name of Excellence
-          </p>
-          
-          <p className="text-sm text-muted leading-relaxed max-w-[420px] mb-6 md:mb-8">
-            Premium Embroidery Manufacturer &amp; Exporter. We transform fine textiles into embroidered masterpieces — from bath towels and bedsheets to fashion fabric and corporate apparel. Trusted across 10+ countries.
-          </p>
-          
-          <div className="flex gap-3 flex-wrap">
-            <Link
-              to="/contact"
-              className="btn-primary"
-            >
-              Request a Sample
-            </Link>
-            <Link
-              to="/products"
-              className="btn-gold-outline"
-            >
-              View Products
-            </Link>
-          </div>
-        </div>
-
-        {/* ── Image panel — mobile: visible block below text; desktop: right column ── */}
-        <div className="relative w-full flex-grow min-h-[300px] md:min-h-screen overflow-hidden">
-          {/* The embroidery image */}
-          <div
-            className="absolute inset-0 bg-center bg-cover bg-no-repeat"
-            style={{ backgroundImage: "url('/hero_embroidery_detail.png')" }}
-          ></div>
-        </div>
-      </section>
+      <Hero />
 
       {/* Stats bar */}
-      <div className="grid grid-cols-2 md:grid-cols-4 bg-ink text-white z-20 border-b border-gold/10">
+      <Reveal className="grid grid-cols-2 md:grid-cols-4 bg-ink text-white z-20 border-b border-gold/10">
         {[
-          { num: '50+', label: 'Machines' },
-          { num: '10+', label: 'Countries' },
-          { num: 'MOQ 50', label: 'Min Order' },
-          { num: '24hr', label: 'Quote' },
+          { value: 50, suffix: '+', label: 'Machines' },
+          { value: 10, suffix: '+', label: 'Countries' },
+          { value: 50, prefix: 'MOQ ', label: 'Min Order' },
+          { value: 24, suffix: 'hr', label: 'Quote' },
         ].map((s, i) => (
           <div 
             key={i} 
             className="py-6 md:py-8 text-center border-r border-b border-white/10 md:border-b-0 last:border-r-0 last:border-b-0"
           >
-            <span className="font-serif text-2xl md:text-4xl font-light text-gold-light block">{s.num}</span>
+            <CountUp value={s.value} prefix={s.prefix} suffix={s.suffix} className="font-serif text-2xl md:text-4xl font-light text-gold-light block" />
             <span className="text-[10px] md:text-xs tracking-wider uppercase text-white/60 mt-1 block">{s.label}</span>
           </div>
         ))}
-      </div>
+      </Reveal>
 
       {/* ════════════════════════════════════════════════════════════════
           MARQUEE
@@ -116,7 +73,7 @@ export default function Home() {
       {/* ════════════════════════════════════════════════════════════════
           ABOUT SNIPPET — image left, text right
          ════════════════════════════════════════════════════════════════ */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-0 bg-parchment overflow-hidden">
+      <Reveal className="grid grid-cols-1 md:grid-cols-2 gap-0 bg-parchment overflow-hidden">
         {/* Image */}
         <div className="relative overflow-hidden h-[260px] md:h-auto md:min-h-[520px]">
           <div
@@ -166,13 +123,13 @@ export default function Home() {
             </Link>
           </div>
         </div>
-      </div>
+      </Reveal>
 
       {/* ════════════════════════════════════════════════════════════════
           PRODUCT GRID — 2 col on mobile, 3 col on desktop
          ════════════════════════════════════════════════════════════════ */}
       <div className="px-4 py-12 md:px-20 md:py-24">
-        <div className="flex justify-between items-end flex-wrap gap-3 mb-2">
+        <Reveal className="flex justify-between items-end flex-wrap gap-3 mb-2">
           <div>
             <div className="section-label">What We Make</div>
             <h2 className="font-serif text-3xl md:text-4xl font-light text-forest leading-tight">
@@ -187,19 +144,20 @@ export default function Home() {
               View All
             </Link>
           </div>
-        </div>
+        </Reveal>
 
         {/* 2-column on mobile, 3-column on desktop */}
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4 mt-8">
+        <Reveal variant={staggerContainer(0.08)} className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4 mt-8">
           {PRODUCTS.map((card, i) => (
-            <div
+            <StaggerItem
               key={i}
-              className="bg-parchment overflow-hidden border border-gold/15 rounded-md transition-colors duration-150 flex flex-col hover:border-forest/30"
+              whileHover={cardLift}
+              className="group bg-parchment overflow-hidden border border-gold/15 rounded-md shadow-sm transition-colors duration-300 flex flex-col hover:border-forest/30"
             >
               {/* Image */}
               <div className="aspect-square md:aspect-[4/3] overflow-hidden relative">
                 <div
-                  className="w-full h-full bg-cover bg-center"
+                  className="w-full h-full bg-cover bg-center transition-transform duration-500 ease-out group-hover:scale-105"
                   style={{ backgroundImage: `url('${card.img}')` }}
                 ></div>
               </div>
@@ -211,9 +169,9 @@ export default function Home() {
                 </div>
                 <span className="inline-block mt-2 text-[8px] md:text-[9px] tracking-widest uppercase text-gold border border-gold px-1.5 py-0.5 self-start">{card.tag}</span>
               </div>
-            </div>
+            </StaggerItem>
           ))}
-        </div>
+        </Reveal>
       </div>
 
       {/* ════════════════════════════════════════════════════════════════
@@ -221,7 +179,7 @@ export default function Home() {
           Mobile: text above, 2-col feature cards below
           Desktop: side by side
          ════════════════════════════════════════════════════════════════ */}
-      <div className="bg-forest bg-forest-textured px-6 py-12 md:p-20 text-white overflow-hidden">
+      <Reveal className="bg-forest bg-forest-textured px-6 py-12 md:p-20 text-white overflow-hidden">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-12 items-start">
           <div>
             <div className="section-label light">Our Edge</div>
@@ -257,12 +215,12 @@ export default function Home() {
             ))}
           </div>
         </div>
-      </div>
+      </Reveal>
 
       {/* ════════════════════════════════════════════════════════════════
           CTA BANNER
          ════════════════════════════════════════════════════════════════ */}
-      <div className="px-6 py-14 md:py-24 text-center bg-parchment border-t border-b border-gold/10">
+      <Reveal className="px-6 py-14 md:py-24 text-center bg-parchment border-t border-b border-gold/10">
         <h2 className="font-serif text-3xl md:text-4xl font-light text-forest leading-tight">
           Ready to Place an Order?
         </h2>
@@ -285,7 +243,7 @@ export default function Home() {
             WhatsApp Now
           </a>
         </div>
-      </div>
+      </Reveal>
     </div>
   );
 }

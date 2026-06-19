@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { MessageSquare, Send, X, MessageCircle, Mail, HelpCircle, Loader2 } from 'lucide-react';
+import { MessageSquare, Send, X, MessageCircle, Mail, Loader2 } from 'lucide-react';
 
 export default function Chatbot() {
   const [isOpen, setIsOpen] = useState(false);

@@ -1,4 +1,3 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
 
 export default function Footer() {
@@ -8,7 +7,7 @@ export default function Footer() {
 
         {/* Brand & WhatsApp */}
         <div className="flex flex-col gap-5 col-span-2 md:col-span-1">
-          <img src="/logo-white.png" alt="Vintex Traders" className="h-38 md:h-48 w-auto object-contain self-start animate-fade-in" />
+          <img src="/logo-white.png" alt="Vintex Traders" className="h-38 md:h-48 w-auto object-contain self-start" />
           <p className="text-sm text-white/40 leading-relaxed max-w-[280px]">
             The Name of Excellence — Premium embroidery craftsmanship from Lahore to the world.
           </p>

@@ -88,47 +88,12 @@ body {
 }
 
 /* ============================================================
-   SCROLL ANIMATIONS (Simplified flat loading - no drama shifts)
+   SCROLL ANIMATIONS
+   Scroll-into-view reveals are now handled by Framer Motion via the
+   <Reveal> component (src/components/Reveal.jsx) and the shared motion
+   tokens in src/lib/motion.js. The previous IntersectionObserver +
+   CSS-class system (.fade-up / .slide-left / .scale-in) has been removed.
    ============================================================ */
-.fade-up {
-  opacity: 1;
-  transform: none;
-}
-
-.fade-up.visible {
-  opacity: 1;
-  transform: none;
-}
-
-.slide-left {
-  opacity: 1;
-  transform: none;
-}
-
-.slide-left.visible {
-  opacity: 1;
-  transform: none;
-}
-
-.slide-right {
-  opacity: 1;
-  transform: none;
-}
-
-.slide-right.visible {
-  opacity: 1;
-  transform: none;
-}
-
-.scale-in {
-  opacity: 1;
-  transform: none;
-}
-
-.scale-in.visible {
-  opacity: 1;
-  transform: none;
-}
 
 /* ============================================================
    CLEAN VECTOR BUTTONS (MongoDB style)
@@ -400,4 +365,79 @@ body {
 
 ::-webkit-scrollbar-thumb:hover {
   background: var(--color-forest);
+}
+
+/* ============================================================
+   ACCESSIBILITY — Keyboard focus + reduced motion
+   ============================================================ */
+
+/* Visible focus rings for the vector buttons (previously missing). */
+.btn-primary:focus-visible,
+.btn-secondary:focus-visible,
+.btn-gold-outline:focus-visible {
+  outline: 2px solid var(--color-gold);
+  outline-offset: 3px;
+}
+
+.btn-gold-outline.light:focus-visible {
+  outline-color: var(--color-gold-light);
+}
+
+/* Respect users who prefer reduced motion. CSS-driven motion is
+   neutralized here; Framer Motion components additionally honor this
+   via the useReducedMotion() hook (see <Reveal /> and others). */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  /* Infinite/looping decorative animations: stop cleanly. */
+  .animate-marquee,
+  .animate-ping,
+  .animate-scroll-hint,
+  .animate-bounce {
+    animation: none !important;
+  }
+
+  .animate-scroll-hint {
+    opacity: 1 !important;
+  }
+}
+
+/* ============================================================
+   FILM GRAIN — faint texture over content so flat panels read richer
+   ============================================================ */
+.grain-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  pointer-events: none;
+  opacity: 0.045;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 160px 160px;
+}
+
+/* ============================================================
+   BUTTON PRESS FEEDBACK (tactile scale on :active)
+   ============================================================ */
+.btn-primary,
+.btn-secondary,
+.btn-gold-outline {
+  transition: background-color 150ms ease-in-out, border-color 150ms ease-in-out,
+    color 150ms ease-in-out, transform 150ms ease-in-out, box-shadow 150ms ease-in-out;
+}
+
+.btn-primary:active,
+.btn-secondary:active,
+.btn-gold-outline:active {
+  transform: scale(0.97);
 }

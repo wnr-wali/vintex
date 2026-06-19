@@ -1,5 +1,8 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { MapPin, Mail, Phone, Clock, Gift, Send, ChevronDown } from 'lucide-react';
+import Reveal from '../components/Reveal';
+import StitchBackground from '../components/StitchBackground';
+import { fadeIn } from '../lib/motion';
 
 function FaqItem({ q, a }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -79,13 +82,7 @@ export default function Contact() {
         className="min-h-[220px] md:min-h-[40vh] flex flex-col justify-end px-6 pt-24 pb-8 md:px-20 md:pt-36 md:pb-16 relative overflow-hidden"
         style={{ background: 'linear-gradient(135deg, #1a4d2e 0%, #0a1a10 100%)' }}
       >
-        <div
-          className="absolute inset-0 opacity-5"
-          style={{
-            backgroundImage: 'repeating-linear-gradient(45deg, #c8a84b 0, #c8a84b 1px, transparent 0, transparent 50%)',
-            backgroundSize: '20px 20px',
-          }}
-        ></div>
+        <StitchBackground />
         <div className="section-label light relative">Work With Us</div>
         <h1 className="font-serif text-4xl md:text-5xl font-light text-white leading-tight relative">
           Get a <em>Quote</em>
@@ -96,7 +93,7 @@ export default function Contact() {
       </div>
 
       {/* ─── Main Split Section ─────────────────────────────────────── */}
-      <section className="grid grid-cols-1 lg:grid-cols-2 lg:min-h-[70vh] overflow-hidden">
+      <Reveal as="section" variant={fadeIn} className="grid grid-cols-1 lg:grid-cols-2 lg:min-h-[70vh] overflow-hidden">
         
         {/* Form Column (First on mobile for high conversion) */}
         <div className="bg-cream px-5 py-8 md:px-16 md:py-20 flex flex-col justify-center order-1 lg:order-2 border-b lg:border-b-0 lg:border-r border-gold/10">
@@ -217,23 +214,23 @@ export default function Contact() {
             </a>
           </div>
         </div>
-      </section>
+      </Reveal>
 
       {/* ─── FAQ Section ────────────────────────────────────────────── */}
       <section className="px-5 py-10 md:px-20 md:py-24 overflow-hidden">
-        <div className="text-center max-w-[580px] mx-auto mb-8 md:mb-12">
+        <Reveal className="text-center max-w-[580px] mx-auto mb-8 md:mb-12">
           <div className="section-label centered">Common Questions</div>
           <h2 className="font-serif text-2xl md:text-4xl font-light text-forest leading-tight">
             Frequently Asked <em>Questions</em>
           </h2>
-        </div>
+        </Reveal>
 
         {/* 1 col stack on mobile, 2 col grid on desktop */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4 max-w-4xl mx-auto">
+        <Reveal className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4 max-w-4xl mx-auto">
           {faqs.map((faq, idx) => (
             <FaqItem key={idx} q={faq.q} a={faq.a} />
           ))}
-        </div>
+        </Reveal>
       </section>
     </div>
   );

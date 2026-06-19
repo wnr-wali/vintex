@@ -1,4 +1,3 @@
-import React from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
 import Navbar from './components/Navbar';
@@ -34,6 +33,7 @@ function App() {
       <ScrollToTop />
       <div className="flex flex-col min-h-screen bg-warm text-ink relative overflow-x-hidden">
         <BackgroundDecorations />
+        <div className="grain-overlay" aria-hidden="true" />
         <Chatbot />
         <Navbar />
         {/* Main Content Area: navbar overlaps hero via absolute/fixed positioning */}

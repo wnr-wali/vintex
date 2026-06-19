@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { NavLink, Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -9,9 +9,13 @@ const NAV_LINKS = [
   { to: '/gallery', label: 'Gallery' },
 ];
 
-const linkClass = ({ isActive }) =>
-  `text-xs tracking-[0.15em] uppercase font-semibold transition-colors duration-300 relative py-1 block ${isActive ? 'text-forest' : 'text-ink/80 hover:text-forest'
-  }`;
+const linkClass = (scrolled) => ({ isActive }) => {
+  const base =
+    'text-xs tracking-[0.15em] uppercase font-semibold transition-colors duration-300 relative py-1 block';
+  if (scrolled) return `${base} ${isActive ? 'text-forest' : 'text-ink/80 hover:text-forest'}`;
+  // Transparent over a hero: tint light + a soft shadow for legibility (no nav background).
+  return `${base} [text-shadow:0_1px_10px_rgba(0,0,0,0.5)] ${isActive ? 'text-gold-light' : 'text-cream/90 hover:text-gold-light'}`;
+};
 
 // Mobile menu container variants for stagger
 const drawerVariants = {
@@ -54,8 +58,10 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  // Close menu on route change
+  // Close menu on route change (syncs UI to the router — a legitimate
+  // external-system sync, so the set-state-in-effect rule is waived here).
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setMenuOpen(false);
     document.body.style.overflow = '';
   }, [location.pathname]);
@@ -72,15 +78,15 @@ export default function Navbar() {
       <nav
         className={`fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 md:px-16 transition-all duration-500 ease-out ${scrolled
           ? 'bg-warm/98 shadow-sm py-0 backdrop-blur-md border-b border-gold/10'
-          : 'bg-warm/90 py-0 backdrop-blur-md border-b border-gold/15'
+          : 'bg-transparent py-0 border-b border-transparent'
           }`}
       >
         {/* Brand Logo */}
         <Link to="/" className="flex items-center z-50" aria-label="Vintex Traders Home">
           <img
-            src="/logo-black.png"
+            src={scrolled || menuOpen ? '/logo-black.png' : '/logo-white.png'}
             alt="Vintex Traders"
-            className={`w-auto object-contain transition-all duration-500 ease-out ${scrolled ? 'h-18 md:h-22' : 'h-24 md:h-28'
+            className={`w-auto object-contain transition-all duration-500 ease-out ${scrolled ? 'h-18 md:h-22' : 'h-24 md:h-28 drop-shadow-[0_2px_10px_rgba(0,0,0,0.45)]'
               }`}
           />
         </Link>
@@ -89,16 +95,16 @@ export default function Navbar() {
         <ul className="hidden md:flex items-center gap-9 list-none">
           {NAV_LINKS.map(({ to, label }) => (
             <li key={to} className="relative group">
-              <NavLink to={to} end={to === '/'} className={linkClass}>
+              <NavLink to={to} end={to === '/'} className={linkClass(scrolled)}>
                 {label}
               </NavLink>
-              <span className="absolute bottom-0 left-0 w-0 h-[2px] bg-forest transition-all duration-300 group-hover:w-full"></span>
+              <span className={`absolute bottom-0 left-0 w-0 h-[2px] transition-all duration-300 group-hover:w-full ${scrolled ? 'bg-forest' : 'bg-gold-light'}`}></span>
             </li>
           ))}
           <li>
             <Link
               to="/contact"
-              className="btn-primary"
+              className={scrolled ? 'btn-primary' : 'inline-flex items-center justify-center rounded-md bg-gold-light px-4 py-2 text-[13px] font-medium text-ink transition-colors hover:bg-gold shadow-lg'}
             >
               Get a Quote
             </Link>
@@ -113,15 +119,15 @@ export default function Navbar() {
           aria-expanded={menuOpen}
         >
           <span
-            className={`block w-6 h-0.5 bg-ink transition-all duration-300 origin-center ${menuOpen ? 'translate-y-[7px] rotate-45' : ''
+            className={`block w-6 h-0.5 ${scrolled || menuOpen ? 'bg-ink' : 'bg-cream'} transition-all duration-300 origin-center ${menuOpen ? 'translate-y-[7px] rotate-45' : ''
               }`}
           ></span>
           <span
-            className={`block w-6 h-0.5 bg-ink transition-all duration-300 ${menuOpen ? 'opacity-0 scale-x-0' : 'opacity-100 scale-x-100'
+            className={`block w-6 h-0.5 ${scrolled || menuOpen ? 'bg-ink' : 'bg-cream'} transition-all duration-300 ${menuOpen ? 'opacity-0 scale-x-0' : 'opacity-100 scale-x-100'
               }`}
           ></span>
           <span
-            className={`block w-6 h-0.5 bg-ink transition-all duration-300 origin-center ${menuOpen ? '-translate-y-[7px] -rotate-45' : ''
+            className={`block w-6 h-0.5 ${scrolled || menuOpen ? 'bg-ink' : 'bg-cream'} transition-all duration-300 origin-center ${menuOpen ? '-translate-y-[7px] -rotate-45' : ''
               }`}
           ></span>
         </button>

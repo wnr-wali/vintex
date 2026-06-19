@@ -1,7 +1,10 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
 import { ShieldCheck, Handshake, Lightbulb, Users, Factory, Eye } from 'lucide-react';
 import { ABOUT_MAIN_IMAGE } from '../assets/images';
+import Reveal from '../components/Reveal';
+import StaggerItem from '../components/StaggerItem';
+import StitchBackground from '../components/StitchBackground';
+import { staggerContainer, cardLift, cardLiftDark } from '../lib/motion';
 
 const VALUES = [
   { Icon: ShieldCheck, title: 'Quality First', desc: 'Every stitch is checked before it leaves our facility. No compromise on quality regardless of order size.' },
@@ -39,8 +42,7 @@ export default function About() {
         className="min-h-[40vh] md:min-h-[45vh] flex flex-col justify-end px-6 pt-28 pb-10 md:px-20 md:pt-36 md:pb-16 relative overflow-hidden"
         style={{ background: 'linear-gradient(135deg, #1a4d2e 0%, #0a1a10 100%)' }}
       >
-        <div className="absolute inset-0 opacity-5"
-          style={{ backgroundImage: 'repeating-linear-gradient(45deg,#c8a84b 0,#c8a84b 1px,transparent 0,transparent 50%)', backgroundSize: '20px 20px' }}></div>
+        <StitchBackground />
         <div className="section-label light relative">Who We Are</div>
         <h1 className="font-serif text-4xl md:text-5xl font-light text-white leading-tight relative">Our <em>Story</em></h1>
         <p className="text-white/60 text-sm md:text-base mt-3 max-w-[500px] leading-relaxed relative">
@@ -49,7 +51,7 @@ export default function About() {
       </div>
 
       {/* ═══ Intro ══════════════════════════════════════════════════════ */}
-      <section className="px-6 py-12 md:px-20 md:py-24 overflow-hidden">
+      <Reveal as="section" className="px-6 py-12 md:px-20 md:py-24 overflow-hidden">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-20 items-center">
 
           {/* Image */}
@@ -94,36 +96,37 @@ export default function About() {
             </div>
           </div>
         </div>
-      </section>
+      </Reveal>
 
       {/* ═══ Core Values — 2 col on MOBILE, 3 col on desktop ════════════ */}
       <section className="bg-parchment px-4 py-12 md:px-20 md:py-24">
-        <div className="text-center max-w-[600px] mx-auto mb-8 md:mb-10">
+        <Reveal className="text-center max-w-[600px] mx-auto mb-8 md:mb-10">
           <div className="section-label centered">What Drives Us</div>
           <h2 className="font-serif text-3xl md:text-4xl font-light text-forest leading-tight">
             Our Core <em>Values</em>
           </h2>
-        </div>
+        </Reveal>
         
         {/* Always 2-col; 3-col on md+ */}
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-6 mt-8">
+        <Reveal variant={staggerContainer(0.07)} className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-6 mt-8">
           {VALUES.map(({ Icon, title, desc }, i) => (
-            <div
+            <StaggerItem
               key={i}
-              className="bg-warm p-4 md:p-8 rounded-md border border-gold/15 transition-colors duration-150 hover:border-forest/20"
+              whileHover={cardLift}
+              className="bg-warm p-4 md:p-8 rounded-md border border-gold/15 shadow-sm transition-colors duration-300 hover:border-forest/20"
             >
               <Icon className="w-6 h-6 md:w-8 md:h-8 text-gold mb-3" strokeWidth={1.5} />
               <h3 className="font-serif text-sm md:text-lg text-forest mb-1.5 font-medium leading-snug">{title}</h3>
               <p className="text-[11px] md:text-xs text-muted leading-relaxed hidden sm:block">{desc}</p>
               {/* On mobile, show a shorter version */}
               <p className="text-[11px] text-muted leading-relaxed sm:hidden line-clamp-3">{desc}</p>
-            </div>
+            </StaggerItem>
           ))}
-        </div>
+        </Reveal>
       </section>
 
       {/* ═══ Process Steps — horizontal scroll on mobile ═══════════════ */}
-      <section className="px-4 py-12 md:px-20 md:py-24 overflow-hidden">
+      <Reveal as="section" className="px-4 py-12 md:px-20 md:py-24 overflow-hidden">
         <div className="text-center max-w-[600px] mx-auto mb-8 md:mb-10">
           <div className="section-label centered">How It Works</div>
           <h2 className="font-serif text-3xl md:text-4xl font-light text-forest leading-tight">
@@ -157,32 +160,33 @@ export default function About() {
             Swipe to see all steps
           </p>
         </div>
-      </section>
+      </Reveal>
 
       {/* ═══ Export Markets — 2×4 on mobile, 4 col on desktop ═══════════ */}
       <section className="bg-forest bg-forest-textured px-4 py-12 md:px-20 md:py-24 text-white overflow-hidden">
-        <div className="text-center max-w-[600px] mx-auto mb-8 md:mb-10">
+        <Reveal className="text-center max-w-[600px] mx-auto mb-8 md:mb-10">
           <div className="section-label light centered">Global Reach</div>
           <h2 className="font-serif text-3xl md:text-4xl font-light text-cream leading-tight">
             Our Export <em>Markets</em>
           </h2>
-        </div>
+        </Reveal>
         
         {/* 2-col on mobile, 4-col on desktop */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <Reveal variant={staggerContainer(0.06)} className="grid grid-cols-2 md:grid-cols-4 gap-4">
           {MARKETS.map((m, i) => (
-            <div
+            <StaggerItem
               key={i}
-              className="bg-ink/50 p-5 md:p-8 text-center cursor-default rounded-md border border-gold/15 transition-all duration-150 hover:bg-ink/75 flex flex-col items-center"
+              whileHover={cardLiftDark}
+              className="bg-ink/50 p-5 md:p-8 text-center cursor-default rounded-md border border-gold/15 transition-colors duration-300 hover:bg-ink/75 flex flex-col items-center"
             >
               <div className="w-10 h-10 md:w-12 md:h-12 rounded-full border border-gold/45 flex items-center justify-center font-serif text-xs font-semibold text-gold-light mb-3 bg-warm/5">
                 {m.code}
               </div>
               <h4 className="font-serif text-xs md:text-sm text-gold-light mb-0.5 font-medium">{m.name}</h4>
               <p className="text-[9px] md:text-[10px] text-white/45 leading-relaxed">{m.detail}</p>
-            </div>
+            </StaggerItem>
           ))}
-        </div>
+        </Reveal>
       </section>
     </div>
   );

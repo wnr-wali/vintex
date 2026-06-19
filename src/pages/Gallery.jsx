@@ -1,8 +1,11 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { X, ChevronLeft, ChevronRight } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { UNIT_MAIN_IMAGE } from '../assets/images';
+import Reveal from '../components/Reveal';
+import CountUp from '../components/CountUp';
+import StitchBackground from '../components/StitchBackground';
 
 const GALLERY_ITEMS = [
   { img: UNIT_MAIN_IMAGE, caption: 'Embroidery Unit — Lahore' },
@@ -49,8 +52,7 @@ export default function Gallery() {
         className="min-h-[40vh] md:min-h-[45vh] flex flex-col justify-end px-6 pt-28 pb-10 md:px-20 md:pt-36 md:pb-16 relative overflow-hidden"
         style={{ background: 'linear-gradient(135deg, #1a4d2e 0%, #0a1a10 100%)' }}
       >
-        <div className="absolute inset-0 opacity-5"
-          style={{ backgroundImage: 'repeating-linear-gradient(45deg,#c8a84b 0,#c8a84b 1px,transparent 0,transparent 50%)', backgroundSize: '20px 20px' }}></div>
+        <StitchBackground />
         <div className="section-label light relative">Our Craft</div>
         <h1 className="font-serif text-4xl md:text-5xl font-light text-white leading-tight relative">
           Embroidery <em>Gallery</em>
@@ -62,7 +64,7 @@ export default function Gallery() {
 
       {/* ═══ Gallery Grid ════════════════════════════════════════════════ */}
       <section className="px-4 py-12 md:px-20 md:py-24 overflow-hidden">
-        <div className="max-w-[580px] mb-8 md:mb-12">
+        <Reveal className="max-w-[580px] mb-8 md:mb-12">
           <div className="section-label">Visual Showcase</div>
           <h2 className="font-serif text-3xl md:text-4xl font-light text-forest leading-tight">
             Our Work, <em>Up Close</em>
@@ -70,12 +72,12 @@ export default function Gallery() {
           <p className="text-sm text-muted leading-relaxed mt-3">
             Click any image to open the full lightbox. Contact us to receive physical samples.
           </p>
-        </div>
+        </Reveal>
 
         {/* ══════════════════════════════════════════════
             MOBILE GALLERY: Simple 2-col uniform grid
             ══════════════════════════════════════════════ */}
-        <div className="md:hidden grid grid-cols-2 gap-2">
+        <Reveal className="md:hidden grid grid-cols-2 gap-2">
           {/* First item spans full width as hero */}
           <Tile
             item={GALLERY_ITEMS[0]}
@@ -94,12 +96,12 @@ export default function Gallery() {
               style={{ height: '160px' }}
             />
           ))}
-        </div>
+        </Reveal>
 
         {/* ══════════════════════════════════════════════
             DESKTOP GALLERY: Bento grid layout
             ══════════════════════════════════════════════ */}
-        <div className="hidden md:block space-y-3">
+        <Reveal className="hidden md:block space-y-3">
           {/* Row 1 — Featured tile (spans 2 rows) + 2 stacked */}
           <div className="grid gap-3" style={{ gridTemplateColumns: '1fr 1fr', gridTemplateRows: '320px 320px' }}>
             <Tile
@@ -137,11 +139,11 @@ export default function Gallery() {
               />
             ))}
           </div>
-        </div>
+        </Reveal>
       </section>
 
       {/* ═══ Production Unit Showcase ════════════════════════════════════ */}
-      <section className="bg-forest bg-forest-textured py-12 md:py-16 px-6 md:px-20 text-white overflow-hidden border-t border-b border-gold/10">
+      <Reveal as="section" className="bg-forest bg-forest-textured py-12 md:py-16 px-6 md:px-20 text-white overflow-hidden border-t border-b border-gold/10">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 items-center">
           <div>
             <div
@@ -157,13 +159,13 @@ export default function Gallery() {
             {/* 4-col stats */}
             <div className="grid grid-cols-4 gap-4 mt-4 md:mt-8">
               {[
-                { num: '50+', label: 'Machines' },
-                { num: '2', label: 'Lines' },
-                { num: '500k+', label: 'Meters/mo' },
-                { num: '100%', label: 'QC Checked' },
+                { value: 50, suffix: '+', label: 'Machines' },
+                { value: 2, label: 'Lines' },
+                { value: 500, suffix: 'k+', label: 'Meters/mo' },
+                { value: 100, suffix: '%', label: 'QC Checked' },
               ].map((s, i) => (
                 <div key={i} className="bg-ink/60 py-4 md:p-6 text-center border border-gold/15 rounded-md">
-                  <span className="font-serif text-xl md:text-3xl font-light text-gold-light block">{s.num}</span>
+                  <CountUp value={s.value} suffix={s.suffix} className="font-serif text-xl md:text-3xl font-light text-gold-light block" />
                   <span className="text-[9px] md:text-[10px] tracking-wider uppercase text-white/50 mt-1 block">{s.label}</span>
                 </div>
               ))}
@@ -197,7 +199,7 @@ export default function Gallery() {
             </div>
           </div>
         </div>
-      </section>
+      </Reveal>
 
       {/* ═══ Lightbox Modal ══════════════════════════════════════════════ */}
       <AnimatePresence>

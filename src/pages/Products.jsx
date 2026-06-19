@@ -1,5 +1,6 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
+import Reveal from '../components/Reveal';
+import StitchBackground from '../components/StitchBackground';
 
 const PRODUCTS = [
   {
@@ -78,8 +79,7 @@ export default function Products() {
         className="min-h-[40vh] md:min-h-[45vh] flex flex-col justify-end px-6 pt-28 pb-10 md:px-20 md:pt-36 md:pb-16 relative overflow-hidden"
         style={{ background: 'linear-gradient(135deg, #1a4d2e 0%, #0a1a10 100%)' }}
       >
-        <div className="absolute inset-0 opacity-5"
-          style={{ backgroundImage: 'repeating-linear-gradient(45deg,#c8a84b 0,#c8a84b 1px,transparent 0,transparent 50%)', backgroundSize: '20px 20px' }}></div>
+        <StitchBackground />
         <div className="section-label light relative">What We Make</div>
         <h1 className="font-serif text-4xl md:text-5xl font-light text-white leading-tight relative">
           Our Product <em>Range</em>
@@ -91,7 +91,7 @@ export default function Products() {
 
       {/* ═══ Catalogue ═══════════════════════════════════════════════════ */}
       <section className="px-4 py-12 md:px-20 md:py-24 overflow-hidden">
-        <div className="max-w-[650px] mb-10 md:mb-14">
+        <Reveal className="max-w-[650px] mb-10 md:mb-14">
           <div className="section-label">Full Catalogue</div>
           <h2 className="font-serif text-3xl md:text-4xl font-light text-forest leading-tight">
             Embroidery for Every<br /><em>Market &amp; Need</em>
@@ -100,17 +100,17 @@ export default function Products() {
             All products are available in custom designs, colors, and sizes.
             Request a sample before placing bulk orders.
           </p>
-        </div>
+        </Reveal>
 
         {/* ── Mobile: 2-col compact card grid ── */}
-        <div className="grid grid-cols-2 gap-3 md:hidden">
+        <Reveal className="grid grid-cols-2 gap-3 md:hidden">
           {PRODUCTS.map((p, idx) => (
             <div
               key={idx}
-              className="bg-parchment overflow-hidden rounded-md border border-gold/15 transition-all duration-150 flex flex-col hover:border-forest/20"
+              className="group bg-parchment overflow-hidden rounded-md border border-gold/15 shadow-sm transition-all duration-300 flex flex-col hover:border-forest/20 hover:-translate-y-1 hover:shadow-xl"
             >
               <div
-                className="w-full aspect-square bg-cover bg-center"
+                className="w-full aspect-square bg-cover bg-center transition-transform duration-500 ease-out group-hover:scale-105"
                 style={{ backgroundImage: `url('${p.img}')` }}
               ></div>
               <div className="p-3 flex flex-col flex-grow">
@@ -132,18 +132,18 @@ export default function Products() {
               </div>
             </div>
           ))}
-        </div>
+        </Reveal>
 
         {/* ── Desktop: full side-by-side detail cards ── */}
-        <div className="hidden md:grid grid-cols-1 gap-8">
+        <Reveal className="hidden md:grid grid-cols-1 gap-8">
           {PRODUCTS.map((p, idx) => (
             <div
               key={idx}
-              className="grid grid-cols-2 bg-parchment overflow-hidden border border-gold/15 rounded-md transition-colors duration-150 hover:border-forest/20"
+              className="group grid grid-cols-2 bg-parchment overflow-hidden border border-gold/15 rounded-md shadow-sm transition-all duration-300 hover:border-forest/20 hover:-translate-y-1 hover:shadow-xl"
             >
               {/* Image */}
               <div
-                className="min-h-[280px] bg-cover bg-center"
+                className="min-h-[280px] bg-cover bg-center transition-transform duration-500 ease-out group-hover:scale-105"
                 style={{ backgroundImage: `url('${p.img}')` }}
               ></div>
               {/* Body */}
@@ -171,11 +171,11 @@ export default function Products() {
               </div>
             </div>
           ))}
-        </div>
+        </Reveal>
       </section>
 
       {/* ═══ Custom CTA ═══════════════════════════════════════════════════ */}
-      <div className="bg-forest bg-forest-textured py-14 md:py-16 px-6 md:px-20 text-center">
+      <Reveal className="bg-forest bg-forest-textured py-14 md:py-16 px-6 md:px-20 text-center">
         <h2 className="font-serif text-3xl md:text-4xl font-light text-cream mb-4">
           Can't Find What You Need? <em>We Do Custom.</em>
         </h2>
@@ -198,7 +198,7 @@ export default function Products() {
             WhatsApp Directly
           </a>
         </div>
-      </div>
+      </Reveal>
     </div>
   );
 }
