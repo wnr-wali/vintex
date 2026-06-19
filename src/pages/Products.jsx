@@ -1,6 +1,8 @@
 import { Link } from 'react-router-dom';
 import Reveal from '../components/Reveal';
 import StitchBackground from '../components/StitchBackground';
+import StaggerItem from '../components/StaggerItem';
+import { staggerContainer, cardLift } from '../lib/motion';
 
 const PRODUCTS = [
   {
@@ -103,11 +105,12 @@ export default function Products() {
         </Reveal>
 
         {/* ── Mobile: 2-col compact card grid ── */}
-        <Reveal className="grid grid-cols-2 gap-3 md:hidden">
+        <Reveal variant={staggerContainer(0.06)} className="grid grid-cols-2 gap-3 md:hidden">
           {PRODUCTS.map((p, idx) => (
-            <div
+            <StaggerItem
               key={idx}
-              className="group bg-parchment overflow-hidden rounded-md border border-gold/15 shadow-sm transition-all duration-300 flex flex-col hover:border-forest/20 hover:-translate-y-1 hover:shadow-xl"
+              whileHover={cardLift}
+              className="group bg-parchment overflow-hidden rounded-md border border-gold/15 shadow-sm transition-colors duration-300 flex flex-col hover:border-forest/20"
             >
               <div
                 className="w-full aspect-square bg-cover bg-center transition-transform duration-500 ease-out group-hover:scale-105"
@@ -130,16 +133,17 @@ export default function Products() {
                   ))}
                 </div>
               </div>
-            </div>
+            </StaggerItem>
           ))}
         </Reveal>
 
         {/* ── Desktop: full side-by-side detail cards ── */}
-        <Reveal className="hidden md:grid grid-cols-1 gap-8">
+        <Reveal variant={staggerContainer(0.08)} className="hidden md:grid grid-cols-1 gap-8">
           {PRODUCTS.map((p, idx) => (
-            <div
+            <StaggerItem
               key={idx}
-              className="group grid grid-cols-2 bg-parchment overflow-hidden border border-gold/15 rounded-md shadow-sm transition-all duration-300 hover:border-forest/20 hover:-translate-y-1 hover:shadow-xl"
+              whileHover={cardLift}
+              className="group grid grid-cols-2 bg-parchment overflow-hidden border border-gold/15 rounded-md shadow-sm transition-colors duration-300 hover:border-forest/20"
             >
               {/* Image */}
               <div
@@ -169,7 +173,7 @@ export default function Products() {
                   ))}
                 </div>
               </div>
-            </div>
+            </StaggerItem>
           ))}
         </Reveal>
       </section>

@@ -145,30 +145,36 @@ export default function Chatbot() {
       <AnimatePresence>
         {isOpen && (
           <motion.div
+            key="chatbot-panel"
             initial={{ opacity: 0, y: 40, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 40, scale: 0.95 }}
-            transition={{ type: 'spring', stiffness: 350, damping: 25 }}
-            className="fixed bottom-24 left-4 right-4 md:left-auto md:right-6 md:w-[380px] h-[500px] max-h-[calc(100vh-120px)] bg-warm border border-gold/30 rounded-2xl shadow-2xl z-[998] flex flex-col overflow-hidden pointer-events-auto"
+            exit={{ 
+              opacity: 0, 
+              y: 80, 
+              scale: 0.9, 
+              transition: { duration: 0.22, ease: [0.32, 0, 0.67, 0] } 
+            }}
+            transition={{ type: 'spring', stiffness: 300, damping: 26 }}
+            className="fixed bottom-24 left-4 right-4 md:left-auto md:right-6 md:w-[380px] h-[500px] max-h-[calc(100vh-120px)] liquid-glass rounded-[28px] z-[998] flex flex-col overflow-hidden pointer-events-auto"
           >
             {/* Header */}
-            <div className="bg-forest px-4 py-3 flex items-center justify-between border-b border-gold/20">
+            <div className="px-4 py-3 flex items-center justify-between border-b border-white/15 bg-white/5">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full bg-ink border border-gold/30 flex items-center justify-center overflow-hidden flex-shrink-0">
+                <div className="w-10 h-10 rounded-full bg-forest border border-gold/30 flex items-center justify-center overflow-hidden flex-shrink-0">
                   <img
                     src="/logo-white-v-badge.png"
                     alt="Vintex Traders Logo"
-                    className="w-full h-full object-contain p-1"
+                    className="w-full h-full object-contain p-1.5"
                   />
                 </div>
                 <div>
-                  <h4 className="text-white text-xs tracking-wider uppercase font-semibold leading-none">Vintex Assistant</h4>
-                  <span className="text-[10px] text-gold-light/85 mt-1 block">Online · B2B Support</span>
+                  <h4 className="text-ink text-xs tracking-wider uppercase font-bold leading-none">Vintex Assistant</h4>
+                  <span className="text-[10px] text-forest/75 mt-1 block font-medium">Online · B2B Support</span>
                 </div>
               </div>
               <button
                 onClick={() => setIsOpen(false)}
-                className="text-white/60 hover:text-white transition-colors bg-transparent border-none cursor-pointer p-1"
+                className="text-ink/65 hover:text-ink transition-colors bg-transparent border-none cursor-pointer p-1"
                 aria-label="Close"
               >
                 <X className="w-5 h-5" />
@@ -176,14 +182,14 @@ export default function Chatbot() {
             </div>
 
             {/* Messages Body */}
-            <div className="flex-grow overflow-y-auto p-4 flex flex-col gap-3 scrollbar-hide bg-parchment/30">
+            <div className="flex-grow overflow-y-auto p-4 flex flex-col gap-3 scrollbar-hide bg-transparent">
               {messages.map((msg, index) => (
                 <div key={index} className={`flex flex-col max-w-[85%] ${msg.sender === 'user' ? 'self-end items-end' : 'self-start'}`}>
                   <div
                     className={`p-3 rounded-2xl text-xs leading-relaxed whitespace-pre-line ${
                       msg.sender === 'user'
-                        ? 'bg-forest text-cream rounded-tr-none'
-                        : 'bg-warm text-ink border border-gold/15 rounded-tl-none'
+                        ? 'bg-forest/90 text-cream rounded-tr-none shadow-sm'
+                        : 'bg-white/85 text-ink shadow-[0_2px_8px_rgba(0,0,0,0.02)] rounded-2xl rounded-tl-none'
                     }`}
                   >
                     {msg.text}
@@ -202,7 +208,7 @@ export default function Chatbot() {
                         </a>
                         <a
                           href="mailto:waleedneem133@gmail.com?subject=Enquiry%20via%20Vintex%20Assistant"
-                          className="btn-gold-outline light w-full bg-forest text-gold-light border border-gold/25 hover:bg-forest/90 py-1.5 px-3 flex items-center justify-center gap-2 text-[10px] rounded-md"
+                          className="btn-gold-outline light w-full bg-forest/90 text-gold-light border border-gold/25 hover:bg-forest py-1.5 px-3 flex items-center justify-center gap-2 text-[10px] rounded-md"
                         >
                           <Mail className="w-3.5 h-3.5" />
                           <span>Send Email Inquiry</span>
@@ -217,7 +223,7 @@ export default function Chatbot() {
               {/* Typing animation bubble */}
               {isTyping && (
                 <div className="self-start flex flex-col max-w-[85%]">
-                  <div className="p-3 bg-warm text-ink border border-gold/15 rounded-2xl rounded-tl-none flex items-center gap-1">
+                  <div className="p-3 bg-white/85 text-ink rounded-2xl rounded-tl-none flex items-center gap-1">
                     <Loader2 className="w-3.5 h-3.5 animate-spin text-gold" />
                     <span className="text-[10px] text-muted font-medium">Vintex Assistant is writing...</span>
                   </div>
@@ -227,12 +233,12 @@ export default function Chatbot() {
             </div>
 
             {/* Quick Suggestions Chips */}
-            <div className="px-4 py-2 bg-warm border-t border-gold/10 flex gap-2 overflow-x-auto scrollbar-hide shrink-0">
+            <div className="px-4 py-2.5 bg-transparent border-t border-white/10 flex gap-2 overflow-x-auto scrollbar-hide shrink-0">
               {suggestionChips.map((chip, idx) => (
                 <button
                   key={idx}
                   onClick={() => handleSendMessage(chip.label)}
-                  className="bg-parchment hover:bg-gold/15 text-forest border border-gold/20 text-[10px] py-1 px-2.5 rounded-full flex-shrink-0 cursor-pointer transition-colors duration-150"
+                  className="bg-white/60 hover:bg-white/90 text-forest text-[10px] py-1.5 px-3 rounded-full flex-shrink-0 cursor-pointer transition-all duration-200 font-medium shadow-[0_1px_3px_rgba(0,0,0,0.02)]"
                 >
                   {chip.label}
                 </button>
@@ -240,14 +246,14 @@ export default function Chatbot() {
             </div>
 
             {/* Input Footer */}
-            <div className="p-3 bg-warm border-t border-gold/15 flex items-center gap-2 shrink-0">
+            <div className="p-3 bg-transparent border-t border-white/15 flex items-center gap-2 shrink-0">
               <input
                 type="text"
                 value={inputValue}
                 onChange={(e) => setInputValue(e.target.value)}
                 onKeyDown={handleKeyPress}
                 placeholder="Ask about MOQ, samples, shipping..."
-                className="flex-grow border border-gold/25 bg-white p-2.5 text-xs text-ink outline-none focus:border-forest rounded-lg w-full transition-colors"
+                className="flex-grow bg-white/70 backdrop-blur-md p-2.5 text-xs text-ink placeholder:text-muted/80 outline-none focus:bg-white/90 rounded-xl w-full transition-all shadow-[inset_0_1px_2px_rgba(0,0,0,0.02)]"
               />
               <button
                 onClick={() => handleSendMessage(inputValue)}

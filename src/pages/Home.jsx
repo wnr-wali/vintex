@@ -5,7 +5,8 @@ import Reveal from '../components/Reveal';
 import Hero from '../components/Hero';
 import StaggerItem from '../components/StaggerItem';
 import CountUp from '../components/CountUp';
-import { staggerContainer, cardLift } from '../lib/motion';
+import StitchDivider from '../components/StitchDivider';
+import { staggerContainer, cardLift, cardLiftDark } from '../lib/motion';
 
 const PRODUCTS = [
   { img: 'https://images.unsplash.com/photo-1583845112203-29329902332e?w=600&q=80', name: 'Embroidered Towels', desc: 'Hotel-grade bath linen for hospitality & retail importers.', tag: 'Export Ready' },
@@ -125,6 +126,8 @@ export default function Home() {
         </div>
       </Reveal>
 
+      <StitchDivider />
+
       {/* ════════════════════════════════════════════════════════════════
           PRODUCT GRID — 2 col on mobile, 3 col on desktop
          ════════════════════════════════════════════════════════════════ */}
@@ -179,9 +182,9 @@ export default function Home() {
           Mobile: text above, 2-col feature cards below
           Desktop: side by side
          ════════════════════════════════════════════════════════════════ */}
-      <Reveal className="bg-forest bg-forest-textured px-6 py-12 md:p-20 text-white overflow-hidden">
+      <div className="bg-forest bg-forest-textured px-6 py-12 md:p-20 text-white overflow-hidden">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-12 items-start">
-          <div>
+          <Reveal>
             <div className="section-label light">Our Edge</div>
             <h2 className="font-serif text-3xl md:text-4xl font-light text-cream leading-tight">
               Why Buyers Choose<br />
@@ -199,23 +202,24 @@ export default function Home() {
                 Start a Conversation
               </button>
             </div>
-          </div>
+          </Reveal>
 
           {/* 2-col feature grid */}
-          <div className="grid grid-cols-2 gap-4">
+          <Reveal variant={staggerContainer(0.08)} className="grid grid-cols-2 gap-4">
             {EDGE_FEATURES.map(({ Icon, title, desc }, i) => (
-              <div 
-                key={i} 
-                className="p-4 md:p-6 bg-ink/40 border border-gold/15 rounded-md transition-colors duration-150 hover:bg-ink/60"
+              <StaggerItem
+                key={i}
+                whileHover={cardLiftDark}
+                className="p-4 md:p-6 bg-ink/40 border border-gold/15 rounded-md transition-colors duration-300 hover:bg-ink/60"
               >
                 <Icon className="w-5 h-5 md:w-6 md:h-6 text-gold-light mb-2 md:mb-3" strokeWidth={1.5} />
                 <h4 className="font-serif text-sm md:text-base text-gold-light mb-1">{title}</h4>
                 <p className="text-[11px] md:text-xs text-white/50 leading-relaxed">{desc}</p>
-              </div>
+              </StaggerItem>
             ))}
-          </div>
+          </Reveal>
         </div>
-      </Reveal>
+      </div>
 
       {/* ════════════════════════════════════════════════════════════════
           CTA BANNER

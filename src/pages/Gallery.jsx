@@ -6,6 +6,8 @@ import { UNIT_MAIN_IMAGE } from '../assets/images';
 import Reveal from '../components/Reveal';
 import CountUp from '../components/CountUp';
 import StitchBackground from '../components/StitchBackground';
+import StaggerItem from '../components/StaggerItem';
+import { staggerContainer } from '../lib/motion';
 
 const GALLERY_ITEMS = [
   { img: UNIT_MAIN_IMAGE, caption: 'Embroidery Unit — Lahore' },
@@ -21,8 +23,8 @@ const GALLERY_ITEMS = [
 
 function Tile({ item, idx, onOpen, className = '', style = {} }) {
   return (
-    <div
-      className={`relative overflow-hidden cursor-pointer group rounded-md border border-gold/15 transition-all duration-150 hover:border-forest/35 ${className}`}
+    <StaggerItem
+      className={`relative overflow-hidden cursor-pointer group rounded-md border border-gold/15 transition-colors duration-150 hover:border-forest/35 ${className}`}
       style={style}
       onClick={() => onOpen(idx)}
     >
@@ -33,7 +35,7 @@ function Tile({ item, idx, onOpen, className = '', style = {} }) {
       <span className="absolute bottom-3 left-3 text-[9px] md:text-[10px] tracking-[0.14em] uppercase text-white/90 bg-ink/65 px-2.5 py-1 rounded-sm backdrop-blur-[4px] z-10 group-hover:bg-forest/80 transition-colors duration-150">
         {item.caption}
       </span>
-    </div>
+    </StaggerItem>
   );
 }
 
@@ -77,7 +79,7 @@ export default function Gallery() {
         {/* ══════════════════════════════════════════════
             MOBILE GALLERY: Simple 2-col uniform grid
             ══════════════════════════════════════════════ */}
-        <Reveal className="md:hidden grid grid-cols-2 gap-2">
+        <Reveal variant={staggerContainer(0.06)} className="md:hidden grid grid-cols-2 gap-2">
           {/* First item spans full width as hero */}
           <Tile
             item={GALLERY_ITEMS[0]}
@@ -101,7 +103,7 @@ export default function Gallery() {
         {/* ══════════════════════════════════════════════
             DESKTOP GALLERY: Bento grid layout
             ══════════════════════════════════════════════ */}
-        <Reveal className="hidden md:block space-y-3">
+        <Reveal variant={staggerContainer(0.05)} className="hidden md:block space-y-3">
           {/* Row 1 — Featured tile (spans 2 rows) + 2 stacked */}
           <div className="grid gap-3" style={{ gridTemplateColumns: '1fr 1fr', gridTemplateRows: '320px 320px' }}>
             <Tile

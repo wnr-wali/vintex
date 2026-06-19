@@ -19,24 +19,25 @@ const linkClass = (scrolled) => ({ isActive }) => {
 
 // Mobile menu container variants for stagger
 const drawerVariants = {
-  hidden: { y: '-100%', opacity: 0.9 },
+  hidden: { y: '-100%', opacity: 0 },
   visible: {
     y: 0,
     opacity: 1,
     transition: {
       type: 'spring',
-      damping: 26,
-      stiffness: 190,
-      staggerChildren: 0.08,
-      delayChildren: 0.15
+      stiffness: 280,
+      damping: 30,
+      mass: 0.9,
+      staggerChildren: 0.06,
+      delayChildren: 0.1
     }
   },
   exit: {
     y: '-100%',
-    opacity: 0.9,
+    opacity: 0,
     transition: {
       type: 'tween',
-      duration: 0.35,
+      duration: 0.3,
       ease: [0.32, 0, 0.67, 0]
     }
   }
@@ -77,7 +78,7 @@ export default function Navbar() {
       {/* ─── Main Navbar ────────────────────────────────────────────── */}
       <nav
         className={`fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 md:px-16 transition-all duration-500 ease-out ${scrolled
-          ? 'bg-warm/98 shadow-sm py-0 backdrop-blur-md border-b border-gold/10'
+          ? 'liquid-glass py-0'
           : 'bg-transparent py-0 border-b border-transparent'
           }`}
       >
@@ -154,13 +155,13 @@ export default function Navbar() {
               initial="hidden"
               animate="visible"
               exit="exit"
-              className="fixed top-0 left-0 right-0 z-[58] md:hidden bg-warm border-b-2 border-gold/30 shadow-2xl overflow-y-auto"
+              className="fixed top-0 left-0 right-0 z-[58] md:hidden liquid-glass overflow-y-auto rounded-b-3xl"
               role="dialog"
               aria-modal="true"
               aria-label="Navigation Menu"
             >
               {/* Spacer for the fixed navbar height */}
-              <div className="h-24 border-b border-gold/10"></div>
+              <div className="h-24 border-b border-white/10"></div>
 
               {/* Menu links */}
               <nav className="flex flex-col px-8 pt-4 pb-8 gap-1">
@@ -170,7 +171,7 @@ export default function Navbar() {
                       to={to}
                       end={to === '/'}
                       className={({ isActive }) =>
-                        `text-sm tracking-[0.12em] uppercase font-semibold py-4 px-4 border-b border-gold/10 transition-colors duration-200 block ${isActive ? 'text-forest bg-forest/5' : 'text-ink hover:text-forest hover:bg-forest/5'
+                        `text-sm tracking-[0.12em] uppercase font-semibold py-4 px-4 border-b border-white/15 transition-colors duration-200 block ${isActive ? 'text-forest bg-white/10' : 'text-ink hover:text-forest hover:bg-white/5'
                         }`
                       }
                       onClick={toggleMenu}
@@ -192,7 +193,7 @@ export default function Navbar() {
                 </motion.div>
 
                 {/* Contact info */}
-                <motion.div variants={linkItemVariants} className="mt-4 pt-4 border-t border-gold/15 flex flex-col gap-1">
+                <motion.div variants={linkItemVariants} className="mt-4 pt-4 border-t border-white/20 flex flex-col gap-1">
                   <a href="tel:+923278666254" className="text-xs text-muted hover:text-forest transition-colors">
                     +92-327-8666254
                   </a>

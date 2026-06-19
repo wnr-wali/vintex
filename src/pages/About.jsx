@@ -4,6 +4,7 @@ import { ABOUT_MAIN_IMAGE } from '../assets/images';
 import Reveal from '../components/Reveal';
 import StaggerItem from '../components/StaggerItem';
 import StitchBackground from '../components/StitchBackground';
+import StitchDivider from '../components/StitchDivider';
 import { staggerContainer, cardLift, cardLiftDark } from '../lib/motion';
 
 const VALUES = [
@@ -98,6 +99,8 @@ export default function About() {
         </div>
       </Reveal>
 
+      <StitchDivider />
+
       {/* ═══ Core Values — 2 col on MOBILE, 3 col on desktop ════════════ */}
       <section className="bg-parchment px-4 py-12 md:px-20 md:py-24">
         <Reveal className="text-center max-w-[600px] mx-auto mb-8 md:mb-10">
@@ -125,14 +128,16 @@ export default function About() {
         </Reveal>
       </section>
 
+      <StitchDivider />
+
       {/* ═══ Process Steps — horizontal scroll on mobile ═══════════════ */}
-      <Reveal as="section" className="px-4 py-12 md:px-20 md:py-24 overflow-hidden">
-        <div className="text-center max-w-[600px] mx-auto mb-8 md:mb-10">
+      <section className="px-4 py-12 md:px-20 md:py-24 overflow-hidden">
+        <Reveal className="text-center max-w-[600px] mx-auto mb-8 md:mb-10">
           <div className="section-label centered">How It Works</div>
           <h2 className="font-serif text-3xl md:text-4xl font-light text-forest leading-tight">
             From Idea to <em>Delivery</em>
           </h2>
-        </div>
+        </Reveal>
 
         {/* Mobile: horizontal scrollable row; Desktop: 5-col grid with connector line */}
         <div className="relative">
@@ -140,9 +145,9 @@ export default function About() {
           <div className="absolute top-10 left-[10%] right-[10%] h-px bg-gradient-to-r from-transparent via-gold to-transparent hidden md:block"></div>
 
           {/* Scrollable on mobile */}
-          <div className="flex gap-4 overflow-x-auto pb-4 md:pb-0 md:grid md:grid-cols-5 md:gap-0 snap-x snap-mandatory scrollbar-hide">
+          <Reveal variant={staggerContainer(0.1)} className="flex gap-4 overflow-x-auto pb-4 md:pb-0 md:grid md:grid-cols-5 md:gap-0 snap-x snap-mandatory scrollbar-hide">
             {STEPS.map((s, i) => (
-              <div
+              <StaggerItem
                 key={i}
                 className="flex-shrink-0 w-[170px] md:w-auto snap-start md:snap-none p-3 md:p-4 text-center"
               >
@@ -151,16 +156,16 @@ export default function About() {
                 </div>
                 <h4 className="font-serif text-xs md:text-sm text-forest mb-1 font-medium leading-snug">{s.title}</h4>
                 <p className="text-[10px] md:text-[11px] text-muted leading-relaxed">{s.desc}</p>
-              </div>
+              </StaggerItem>
             ))}
-          </div>
+          </Reveal>
 
           {/* Mobile scroll hint */}
           <p className="text-center text-[10px] text-muted/60 mt-2 md:hidden tracking-wider uppercase animate-bounce">
             Swipe to see all steps
           </p>
         </div>
-      </Reveal>
+      </section>
 
       {/* ═══ Export Markets — 2×4 on mobile, 4 col on desktop ═══════════ */}
       <section className="bg-forest bg-forest-textured px-4 py-12 md:px-20 md:py-24 text-white overflow-hidden">

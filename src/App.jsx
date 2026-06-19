@@ -33,7 +33,6 @@ function App() {
       <ScrollToTop />
       <div className="flex flex-col min-h-screen bg-warm text-ink relative overflow-x-hidden">
         <BackgroundDecorations />
-        <div className="grain-overlay" aria-hidden="true" />
         <Chatbot />
         <Navbar />
         {/* Main Content Area: navbar overlaps hero via absolute/fixed positioning */}
