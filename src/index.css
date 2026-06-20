@@ -1,0 +1,495 @@
+@import "tailwindcss";
+
+@theme {
+  --color-ink: #0e1a12;
+  --color-forest: #1a4d2e;
+  --color-moss: #2d6a4f;
+  --color-gold: #c8a84b;
+  --color-gold-light: #e8cc7a;
+  --color-gold-l: #e8cc7a;
+  --color-cream: #f8f4ed;
+  --color-parchment: #ede8de;
+  --color-warm: #fdfaf5;
+  --color-muted: #6b7b6e;
+
+  --font-serif: 'Cormorant Garamond', Georgia, serif;
+  --font-sans: 'DM Sans', sans-serif;
+}
+
+/* ============================================================
+   BASE STYLES
+   ============================================================ */
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+  width: 100%;
+  position: relative;
+}
+
+body {
+  background-color: var(--color-warm);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+  width: 100%;
+  position: relative;
+  background-image: 
+    radial-gradient(rgba(200, 168, 75, 0.12) 1.5px, transparent 1.5px),
+    linear-gradient(rgba(200, 168, 75, 0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(200, 168, 75, 0.02) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+/* ============================================================
+   SECTION LABEL UTILITY
+   ============================================================ */
+.section-label {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--color-gold);
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+.section-label::before {
+  content: '';
+  display: block;
+  width: 32px;
+  height: 1px;
+  background-color: var(--color-gold);
+  flex-shrink: 0;
+}
+
+/* Centered variant */
+.section-label.centered {
+  justify-content: center;
+}
+
+/* Light variant (for dark backgrounds) */
+.section-label.light {
+  color: var(--color-gold-light);
+}
+
+.section-label.light::before {
+  background-color: var(--color-gold-light);
+}
+
+/* ============================================================
+   GLASS NAV
+   ============================================================ */
+.glass-nav {
+  background-color: rgba(253, 250, 245, 0.8);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(200, 168, 75, 0.15);
+}
+
+/* ============================================================
+   SCROLL ANIMATIONS
+   Scroll-into-view reveals are now handled by Framer Motion via the
+   <Reveal> component (src/components/Reveal.jsx) and the shared motion
+   tokens in src/lib/motion.js. The previous IntersectionObserver +
+   CSS-class system (.fade-up / .slide-left / .scale-in) has been removed.
+   ============================================================ */
+
+/* ============================================================
+   CLEAN VECTOR BUTTONS (MongoDB style)
+   ============================================================ */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-forest);
+  color: var(--color-warm);
+  border: 1px solid var(--color-forest);
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: 500;
+  padding: 8px 16px;
+  border-radius: 6px;
+  transition: background-color 150ms ease-in-out, border-color 150ms ease-in-out;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.btn-primary:hover {
+  background-color: var(--color-ink);
+  border-color: var(--color-ink);
+}
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent;
+  color: var(--color-forest);
+  border: 1px solid var(--color-forest);
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: 500;
+  padding: 8px 16px;
+  border-radius: 6px;
+  transition: background-color 150ms ease-in-out, color 150ms ease-in-out, border-color 150ms ease-in-out;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.btn-secondary:hover {
+  background-color: rgba(26, 77, 46, 0.05);
+}
+
+.btn-gold-outline {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent;
+  color: var(--color-forest);
+  border: 1px solid var(--color-gold);
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: 500;
+  padding: 8px 16px;
+  border-radius: 6px;
+  transition: background-color 150ms ease-in-out, color 150ms ease-in-out, border-color 150ms ease-in-out;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.btn-gold-outline:hover {
+  background-color: rgba(200, 168, 75, 0.08);
+}
+
+.btn-gold-outline.light {
+  color: var(--color-gold-light);
+  border-color: var(--color-gold-light);
+}
+
+.btn-gold-outline.light:hover {
+  background-color: rgba(232, 204, 122, 0.1);
+  color: var(--color-gold-light);
+}
+
+/* Animation Delay Utilities */
+.delay-1 {
+  transition-delay: 80ms;
+}
+
+.delay-2 {
+  transition-delay: 160ms;
+}
+
+.delay-3 {
+  transition-delay: 240ms;
+}
+
+.delay-4 {
+  transition-delay: 320ms;
+}
+
+.delay-5 {
+  transition-delay: 400ms;
+}
+
+.delay-6 {
+  transition-delay: 480ms;
+}
+
+/* ============================================================
+   MARQUEE ANIMATION
+   ============================================================ */
+@keyframes ms {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee {
+  animation: ms 25s linear infinite;
+}
+
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
+
+/* Horizontal Fade Mask for Marquee Container */
+.marquee-wrapper {
+  position: relative;
+  overflow: hidden;
+  background-color: var(--color-forest);
+  border-top: 1px solid rgba(200, 168, 75, 0.15);
+  border-bottom: 1px solid rgba(200, 168, 75, 0.15);
+}
+
+.marquee-wrapper::before,
+.marquee-wrapper::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 80px;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.marquee-wrapper::before {
+  left: 0;
+  background: linear-gradient(to right, var(--color-forest) 0%, transparent 100%);
+}
+
+.marquee-wrapper::after {
+  right: 0;
+  background: linear-gradient(to left, var(--color-forest) 0%, transparent 100%);
+}
+
+/* ============================================================
+   SCROLL HINT
+   ============================================================ */
+@keyframes sp {
+
+  0%,
+  100% {
+    opacity: 0.3;
+  }
+
+  50% {
+    opacity: 1;
+  }
+}
+
+.animate-scroll-hint {
+  animation: sp 2s infinite;
+}
+
+/* ============================================================
+   GALLERY GRID ITEMS — ensure images fill container
+   ============================================================ */
+.gal-bg {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  transition: transform 0.7s ease-out, filter 0.5s ease-out;
+  filter: brightness(0.88);
+}
+
+.gal-item:hover .gal-bg {
+  transform: scale(1.05);
+  filter: brightness(1);
+}
+
+/* ============================================================
+   SCROLLBAR HIDE — for horizontal scroll containers on mobile
+   ============================================================ */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* ============================================================
+   SNAP SCROLL UTILITIES
+   ============================================================ */
+.snap-x {
+  scroll-snap-type: x mandatory;
+}
+
+.snap-mandatory {
+  scroll-snap-type: x mandatory;
+}
+
+.snap-start {
+  scroll-snap-align: start;
+}
+
+/* ============================================================
+   MOBILE PRODUCT CARD — ensure images fill square
+   ============================================================ */
+.product-card-img {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  background-size: cover;
+  background-position: center;
+}
+
+/* ============================================================
+   LINE CLAMP UTILITY
+   ============================================================ */
+.line-clamp-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* ============================================================
+   TEXTURED FOREST BACKGROUND UTILITY
+   ============================================================ */
+.bg-forest-textured {
+  background-image: url('/bg_green_fabric.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* ============================================================
+   CUSTOM PREMIUM SCROLLBAR
+   ============================================================ */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-warm);
+  border-left: 1px solid rgba(200, 168, 75, 0.08);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-gold);
+  border-radius: 9999px;
+  border: 2px solid var(--color-warm);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-forest);
+}
+
+/* ============================================================
+   ACCESSIBILITY — Keyboard focus + reduced motion
+   ============================================================ */
+
+/* Visible focus rings for the vector buttons (previously missing). */
+.btn-primary:focus-visible,
+.btn-secondary:focus-visible,
+.btn-gold-outline:focus-visible {
+  outline: 2px solid var(--color-gold);
+  outline-offset: 3px;
+}
+
+.btn-gold-outline.light:focus-visible {
+  outline-color: var(--color-gold-light);
+}
+
+/* Respect users who prefer reduced motion. CSS-driven motion is
+   neutralized here; Framer Motion components additionally honor this
+   via the useReducedMotion() hook (see <Reveal /> and others). */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  /* Infinite/looping decorative animations: stop cleanly. */
+  .animate-marquee,
+  .animate-ping,
+  .animate-scroll-hint,
+  .animate-bounce {
+    animation: none !important;
+  }
+
+  .animate-scroll-hint {
+    opacity: 1 !important;
+  }
+}
+
+/* ============================================================
+   BUTTON PRESS FEEDBACK (tactile scale on :active)
+   ============================================================ */
+.btn-primary,
+.btn-secondary,
+.btn-gold-outline {
+  transition: background-color 150ms ease-in-out, border-color 150ms ease-in-out,
+    color 150ms ease-in-out, transform 150ms ease-in-out, box-shadow 150ms ease-in-out;
+}
+
+.btn-primary:active,
+.btn-secondary:active,
+.btn-gold-outline:active {
+  transform: scale(0.97);
+}
+
+/* ============================================================
+   LIQUID GLASS — a translucent frosted material (iOS-style).
+   • heavy blur + saturation + brightness → light interaction /
+     the refractive "wash" of content behind the glass
+   • top linear-gradient → specular sheen (reflection)
+   • inset top highlight + faint inner rim → light catching edges
+   • soft drop shadow → elevation / depth
+   ============================================================ */
+.liquid-glass {
+  background-color: rgba(253, 250, 245, 0.45);
+  background-image: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.32) 0%,
+    rgba(255, 255, 255, 0.06) 26%,
+    rgba(255, 255, 255, 0) 60%
+  );
+  backdrop-filter: blur(22px) saturate(185%) brightness(1.16);
+  -webkit-backdrop-filter: blur(22px) saturate(185%) brightness(1.16);
+  box-shadow:
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.65),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.08),
+    0 12px 38px -12px rgba(14, 26, 18, 0.24);
+}
+
+/* Edge-light rim (iOS-26 signature): a crisp gradient hairline that follows
+   the element's border-radius — bright top-left, fading, bright bottom-right,
+   like light catching the edge of glass. Apply only to ROUNDED, positioned
+   surfaces (drawer, chatbot panel/launcher, lightbox chips). */
+.liquid-glass-rim::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.85) 0%,
+    rgba(255, 255, 255, 0.12) 42%,
+    rgba(255, 255, 255, 0.06) 56%,
+    rgba(255, 255, 255, 0.5) 100%
+  );
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Dark (forest-tinted) glass — for dark surfaces with light text / icons
+   (chatbot header & launcher, lightbox control chips). */
+.liquid-glass-dark {
+  background-color: rgba(26, 77, 46, 0.5);
+  background-image: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.14) 0%,
+    rgba(255, 255, 255, 0.03) 32%,
+    rgba(255, 255, 255, 0) 62%
+  );
+  backdrop-filter: blur(18px) saturate(160%) brightness(1.05);
+  -webkit-backdrop-filter: blur(18px) saturate(160%) brightness(1.05);
+  box-shadow:
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.22),
+    0 12px 36px -12px rgba(0, 0, 0, 0.45);
+}

@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Home | Vintex Traders</title>
+<meta name="description" content="Vintex Traders - Premium Embroidery Manufacturer and Exporter from Lahore, Pakistan.">
+<link rel="icon" type="image/png" href="data:image/png;base64,PLACEHOLDER_SIZE_577934">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#0e1a12;--forest:#1a4d2e;--moss:#2d6a4f;
+  --gold:#c8a84b;--gold-l:#e8cc7a;
+  --cream:#f8f4ed;--parchment:#ede8de;--warm:#fdfaf5;
+  --muted:#6b7b6e;
+  --serif:'Cormorant Garamond',Georgia,serif;
+  --sans:'DM Sans',sans-serif;
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:var(--sans);background:var(--warm);color:var(--ink);overflow-x:hidden;}
+
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:200;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0.5rem 4rem;
+  background:rgba(253,250,245,0.97);
+  backdrop-filter:blur(16px);
+  border-bottom:1px solid rgba(200,168,75,0.15);
+  transition:box-shadow 0.3s;min-height:70px;
+}
+nav.scrolled{box-shadow:0 2px 20px rgba(0,0,0,0.09);}
+.nav-brand{display:flex;align-items:center;text-decoration:none;}
+.nav-logo-img{height:50px;width:auto;display:block;object-fit:contain;}
+.nav-links{display:flex;gap:2rem;list-style:none;align-items:center;}
+.nav-links a{
+  font-size:0.79rem;letter-spacing:0.12em;text-transform:uppercase;
+  color:var(--ink);text-decoration:none;font-weight:500;
+  padding:0.3rem 0;position:relative;transition:color 0.2s;
+}
+.nav-links a::after{
+  content:'';position:absolute;bottom:-1px;left:0;right:0;
+  height:1.5px;background:var(--gold);
+  transform:scaleX(0);transition:transform 0.3s;
+}
+.nav-links a:hover,.nav-links a.active-link{color:var(--forest);}
+.nav-links a:hover::after,.nav-links a.active-link::after{transform:scaleX(1);}
+a.nav-cta{
+  background:var(--forest);color:white;
+  padding:0.55rem 1.3rem;border-radius:2px;
+}
+a.nav-cta::after{display:none;}
+a.nav-cta:hover{background:var(--moss);color:white;}
+.hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;}
+.hamburger span{display:block;width:22px;height:2px;background:var(--ink);transition:0.3s;}
+.hamburger.x span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+.hamburger.x span:nth-child(2){opacity:0;}
+.hamburger.x span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+
+footer{background:var(--ink);padding:4rem 5rem 2rem;}
+.footer-inner{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:3rem;padding-bottom:3rem;border-bottom:1px solid rgba(255,255,255,0.07);}
+.footer-logo{height:55px;width:auto;object-fit:contain;display:block;margin-bottom:1rem;filter:brightness(10);}
+.footer-tagline{font-size:0.82rem;color:rgba(255,255,255,0.38);line-height:1.8;margin-bottom:1.2rem;max-width:280px;}
+.wa-footer{
+  display:inline-flex;align-items:center;gap:0.5rem;
+  background:#25d366;color:white;padding:0.6rem 1.1rem;
+  text-decoration:none;font-size:0.78rem;font-weight:600;
+  border-radius:2px;transition:background 0.2s;
+}
+.wa-footer:hover{background:#1da851;}
+.footer-col h5{font-size:0.65rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--gold);margin-bottom:1.1rem;font-weight:600;}
+.footer-col ul{list-style:none;display:flex;flex-direction:column;gap:0.55rem;}
+.footer-col ul li,.footer-col ul li a{font-size:0.81rem;color:rgba(255,255,255,0.38);text-decoration:none;transition:color 0.2s;}
+.footer-col ul li a:hover{color:var(--gold-l);}
+.footer-bottom{display:flex;justify-content:space-between;align-items:center;padding-top:1.5rem;flex-wrap:wrap;gap:0.5rem;}
+.footer-bottom p{font-size:0.72rem;color:rgba(255,255,255,0.22);}
+
+.section-label{font-size:0.68rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--gold);font-weight:600;display:flex;align-items:center;gap:1rem;margin-bottom:0.8rem;}
+.section-label::before{content:'';width:2.5rem;height:1px;background:var(--gold);}
+.section-title{font-family:var(--serif);font-size:clamp(2rem,3vw,3rem);font-weight:300;color:var(--forest);line-height:1.15;}
+.section-title em{font-style:italic;color:var(--gold);}
+.fade-up{opacity:0;transform:translateY(40px);transition:opacity 0.75s cubic-bezier(.22,1,.36,1),transform 0.75s cubic-bezier(.22,1,.36,1);}
+.fade-up.visible{opacity:1;transform:translateY(0);}
+.slide-left{opacity:0;transform:translateX(-50px);transition:opacity 0.8s cubic-bezier(.22,1,.36,1),transform 0.8s cubic-bezier(.22,1,.36,1);}
+.slide-left.visible{opacity:1;transform:translateX(0);}
+.slide-right{opacity:0;transform:translateX(50px);transition:opacity 0.8s cubic-bezier(.22,1,.36,1),transform 0.8s cubic-bezier(.22,1,.36,1);}
+.slide-right.visible{opacity:1;transform:translateX(0);}
+.scale-in{opacity:0;transform:scale(0.92);transition:opacity 0.7s cubic-bezier(.22,1,.36,1),transform 0.7s cubic-bezier(.22,1,.36,1);}
+.scale-in.visible{opacity:1;transform:scale(1);}
+.delay-1{transition-delay:0.1s;}
+.delay-2{transition-delay:0.2s;}
+.delay-3{transition-delay:0.3s;}
+.delay-4{transition-delay:0.4s;}
+.delay-5{transition-delay:0.5s;}
+.btn-p{display:inline-block;background:var(--forest);color:white;padding:0.9rem 2.1rem;text-decoration:none;font-size:0.79rem;letter-spacing:0.12em;text-transform:uppercase;font-weight:600;border:2px solid var(--forest);transition:all 0.3s;}
+.btn-p:hover{background:transparent;color:var(--forest);}
+.btn-o{display:inline-block;border:2px solid var(--gold);color:var(--forest);padding:0.9rem 2.1rem;text-decoration:none;font-size:0.79rem;letter-spacing:0.12em;text-transform:uppercase;font-weight:600;transition:all 0.3s;}
+.btn-o:hover{background:var(--gold);color:white;}
+.page-hero{
+  min-height:45vh;display:flex;flex-direction:column;justify-content:flex-end;
+  padding:8rem 5rem 4rem;
+  background:linear-gradient(135deg,var(--forest) 0%,#0a1a10 100%);
+  position:relative;overflow:hidden;
+}
+.page-hero::before{content:'';position:absolute;inset:0;opacity:0.06;background-image:repeating-linear-gradient(45deg,var(--gold) 0,var(--gold) 1px,transparent 0,transparent 50%);background-size:20px 20px;}
+.page-hero-label{font-size:0.68rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--gold);margin-bottom:0.8rem;position:relative;display:flex;align-items:center;gap:1rem;}
+.page-hero-label::before{content:'';width:2.5rem;height:1px;background:var(--gold);}
+.page-hero h1{font-family:var(--serif);font-size:clamp(2.5rem,5vw,4.2rem);font-weight:300;color:white;line-height:1.1;position:relative;}
+.page-hero h1 em{font-style:italic;color:var(--gold-l);}
+.page-hero p{color:rgba(255,255,255,0.55);font-size:1rem;margin-top:1rem;max-width:500px;line-height:1.7;position:relative;}
+
+@media(max-width:1024px){
+  nav{padding:0.5rem 1.5rem;}
+  .hamburger{display:flex;}
+  .nav-links{display:none;position:fixed;inset:0;background:var(--warm);z-index:190;flex-direction:column;justify-content:center;align-items:center;gap:2rem;}
+  .nav-links.open{display:flex;}
+  .nav-links a{font-size:1.1rem;}
+  footer{padding:3rem 1.5rem 2rem;}
+  .footer-inner{grid-template-columns:1fr 1fr;gap:2rem;}
+  .page-hero{padding:7rem 1.5rem 3rem;min-height:38vh;}
+}
+@media(max-width:640px){
+  .footer-inner{grid-template-columns:1fr;}
+}
+</style>
+<style>
+#hero{
+  min-height:100vh;display:grid;grid-template-columns:1fr 1fr;
+  position:relative;overflow:hidden;
+}
+.hero-left{
+  display:flex;flex-direction:column;justify-content:center;
+  padding:9rem 4rem 4rem 5rem;background:var(--warm);z-index:2;
+}
+.hero-badge{
+  display:inline-flex;align-items:center;gap:0.6rem;
+  font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;
+  color:var(--gold);font-weight:600;margin-bottom:1.4rem;
+}
+.hero-badge::before{content:'';width:2rem;height:1px;background:var(--gold);}
+.hero-title{font-family:var(--serif);font-size:clamp(2.8rem,4vw,4.8rem);font-weight:300;line-height:1.1;color:var(--forest);margin-bottom:0.6rem;}
+.hero-title em{font-style:italic;color:var(--gold);}
+.hero-sub{font-family:var(--serif);font-size:1.1rem;font-weight:300;color:var(--muted);margin-bottom:1.8rem;line-height:1.6;}
+.hero-desc{font-size:0.93rem;color:var(--muted);line-height:1.9;max-width:420px;margin-bottom:2.5rem;}
+.hero-actions{display:flex;gap:1rem;flex-wrap:wrap;}
+.hero-right{position:relative;overflow:hidden;background:var(--forest);}
+.hero-img{
+  position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(26,77,46,0.75) 0%,rgba(26,77,46,0.2) 60%),
+  url('data:image/jpeg;base64,PLACEHOLDER_SIZE_500851') center/cover no-repeat;
+}
+.hero-stats{
+  position:absolute;bottom:0;left:0;right:0;
+  display:grid;grid-template-columns:1fr 1fr;gap:1px;
+  background:rgba(200,168,75,0.25);
+}
+.stat{background:rgba(10,20,14,0.75);backdrop-filter:blur(6px);padding:1.4rem;text-align:center;}
+.stat-n{font-family:var(--serif);font-size:2rem;font-weight:300;color:var(--gold-l);display:block;}
+.stat-l{font-size:0.66rem;letter-spacing:0.15em;text-transform:uppercase;color:rgba(255,255,255,0.6);margin-top:0.2rem;}
+.scroll-hint{display:flex;align-items:center;gap:0.8rem;margin-top:3rem;font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);}
+.scroll-hint::before{content:'';width:1px;height:36px;background:linear-gradient(to bottom,transparent,var(--gold));animation:sp 2s infinite;}
+@keyframes sp{0%,100%{opacity:0.3;}50%{opacity:1;}}
+.marquee{background:var(--forest);padding:0.85rem 0;overflow:hidden;}
+.marquee-track{display:flex;gap:3rem;animation:ms 22s linear infinite;width:max-content;}
+.marquee-item{font-size:0.68rem;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,0.6);white-space:nowrap;display:flex;align-items:center;gap:1.5rem;}
+.marquee-item::after{content:'✦';color:var(--gold);font-size:0.45rem;}
+@keyframes ms{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+.home-about{display:grid;grid-template-columns:1fr 1fr;gap:0;background:var(--parchment);}
+.ha-img{
+  position:relative;overflow:hidden;
+  aspect-ratio:16/9;
+  min-height:520px;
+}
+.ha-img-inner{
+  position:absolute;inset:-5%;
+  background:url('data:image/jpeg;base64,PLACEHOLDER_SIZE_500851') center/cover no-repeat;
+  transition:transform 0.6s ease;
+}
+.home-about:hover .ha-img-inner{transform:scale(1.03);}
+.ha-img::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(to right, transparent 70%, var(--parchment) 100%);
+}
+.ha-text{padding:5rem 4rem;display:flex;flex-direction:column;justify-content:center;}
+.ha-text p{font-size:0.93rem;color:var(--muted);line-height:1.9;margin-bottom:1.2rem;}
+.highlights{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:2rem;}
+.hl{border-left:2px solid var(--gold);padding-left:1rem;}
+.hl strong{display:block;font-family:var(--serif);font-size:1.5rem;color:var(--forest);font-weight:300;}
+.hl span{font-size:0.75rem;color:var(--muted);}
+.home-products{padding:5rem 5rem;}
+.hp-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5px;background:var(--parchment);margin-top:3rem;}
+.hp-card{background:var(--warm);overflow:hidden;}
+.hp-img{aspect-ratio:4/3;overflow:hidden;position:relative;}
+.hp-img .bg{width:100%;height:100%;background-size:cover;background-position:center;transition:transform 0.6s;}
+.hp-card:hover .bg{transform:scale(1.05);}
+.hp-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(14,26,18,0.65) 0%,transparent 55%);opacity:0;transition:opacity 0.4s;display:flex;align-items:flex-end;padding:1.2rem;}
+.hp-card:hover .hp-overlay{opacity:1;}
+.hp-overlay span{font-size:0.72rem;color:white;letter-spacing:0.1em;text-transform:uppercase;}
+.hp-info{padding:1.4rem;}
+.hp-name{font-family:var(--serif);font-size:1.15rem;font-weight:400;color:var(--forest);margin-bottom:0.3rem;}
+.hp-desc{font-size:0.8rem;color:var(--muted);line-height:1.6;}
+.hp-tag{display:inline-block;margin-top:0.7rem;font-size:0.62rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);border:1px solid var(--gold);padding:0.18rem 0.55rem;}
+.home-why{display:grid;grid-template-columns:1fr 1fr;align-items:center;background:var(--forest);padding:5rem;}
+.hw-left .section-label{color:var(--gold-l);}
+.hw-left .section-label::before{background:var(--gold-l);}
+.hw-left .section-title{color:var(--cream);}
+.hw-left .section-title em{color:var(--gold-l);}
+.hw-intro{color:rgba(255,255,255,0.55);font-size:0.92rem;line-height:1.9;margin-top:1.2rem;}
+.why-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid rgba(200,168,75,0.2);}
+.wi{padding:1.8rem;border-right:1px solid rgba(200,168,75,0.2);border-bottom:1px solid rgba(200,168,75,0.2);transition:background 0.3s;}
+.wi:nth-child(2n){border-right:none;}
+.wi:nth-last-child(-n+2){border-bottom:none;}
+.wi:hover{background:rgba(200,168,75,0.07);}
+.wi-icon{font-size:1.3rem;margin-bottom:0.6rem;}
+.wi h4{font-family:var(--serif);font-size:1rem;font-weight:400;color:var(--gold-l);margin-bottom:0.4rem;}
+.wi p{font-size:0.79rem;color:rgba(255,255,255,0.5);line-height:1.7;}
+.home-cta{padding:6rem 5rem;text-align:center;background:var(--parchment);}
+.home-cta h2{font-family:var(--serif);font-size:clamp(2rem,3vw,3rem);font-weight:300;color:var(--forest);margin-bottom:1rem;}
+.home-cta p{color:var(--muted);font-size:0.93rem;margin-bottom:2rem;max-width:520px;margin-left:auto;margin-right:auto;line-height:1.8;}
+.cta-btns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;}
+@media(max-width:1024px){
+  #hero{grid-template-columns:1fr;}
+  .hero-left{padding:8rem 1.5rem 3rem;}
+  .hero-right{min-height:380px;}
+  .home-about{grid-template-columns:1fr;}
+  .ha-img{min-height:280px;}
+  .ha-text{padding:3rem 1.5rem;}
+  .home-products{padding:4rem 1.5rem;}
+  .hp-grid{grid-template-columns:1fr 1fr;}
+  .home-why{grid-template-columns:1fr;padding:4rem 1.5rem;gap:3rem;}
+  .home-cta{padding:4rem 1.5rem;}
+}
+@media(max-width:640px){.hp-grid{grid-template-columns:1fr;}.highlights{grid-template-columns:1fr;}.why-grid{grid-template-columns:1fr;}.wi{border-right:none;}}
+</style>
+</head>
+<body>
+<nav id="navbar">
+  <a href="index.html" class="nav-brand">
+    <img src="data:image/png;base64,PLACEHOLDER_SIZE_577934" alt="Vintex Traders" class="nav-logo-img">
+  </a>
+  <button class="hamburger" id="ham" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </button>
+  <ul class="nav-links" id="navLinks"><li><a href="index.html" class=" active-link">Home</a></li><li><a href="about.html" class="">About Us</a></li><li><a href="products.html" class="">Products</a></li><li><a href="gallery.html" class="">Gallery</a></li><li><a href="contact.html" class="nav-cta">Get a Quote</a></li></ul>
+</nav>
+
+<section id="hero">
+  <div class="hero-left">
+    <div class="hero-badge fade-up">Est. in Lahore, Pakistan</div>
+    <h1 class="hero-title fade-up delay-1">Where Craft Meets<br><em>Global Standards</em></h1>
+    <p class="hero-sub fade-up delay-2">Premium Embroidery Manufacturer &amp; Exporter</p>
+    <p class="hero-desc fade-up delay-3">We transform fine textiles into embroidered masterpieces — from bath towels and bedsheets to fashion fabric and corporate apparel. Trusted by international buyers across 10+ countries.</p>
+    <div class="hero-actions fade-up delay-4">
+      <a href="contact.html" class="btn-p">Request a Sample</a>
+      <a href="products.html" class="btn-o">View Products</a>
+    </div>
+    <div class="scroll-hint">Scroll to explore</div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-img"></div>
+    <div class="hero-stats">
+      <div class="stat scale-in delay-1"><span class="stat-n">50+</span><span class="stat-l">Machines</span></div>
+      <div class="stat scale-in delay-2"><span class="stat-n">10+</span><span class="stat-l">Export Countries</span></div>
+      <div class="stat scale-in delay-3"><span class="stat-n">MOQ 50</span><span class="stat-l">Low Minimum Order</span></div>
+      <div class="stat scale-in delay-4"><span class="stat-n">24hr</span><span class="stat-l">Quote Turnaround</span></div>
+    </div>
+  </div>
+</section>
+<div class="marquee">
+  <div class="marquee-track">
+    <span class="marquee-item">Embroidered Towels</span>
+    <span class="marquee-item">Bedsheets &amp; Linen</span>
+    <span class="marquee-item">Fashion Fabric</span>
+    <span class="marquee-item">Corporate Logos</span>
+    <span class="marquee-item">Custom Patches</span>
+    <span class="marquee-item">Bridal Embroidery</span>
+    <span class="marquee-item">Table Runners</span>
+    <span class="marquee-item">Bulk Export Orders</span>
+    <span class="marquee-item">Free Samples Available</span>
+    <span class="marquee-item">Embroidered Towels</span>
+    <span class="marquee-item">Bedsheets &amp; Linen</span>
+    <span class="marquee-item">Fashion Fabric</span>
+    <span class="marquee-item">Corporate Logos</span>
+    <span class="marquee-item">Custom Patches</span>
+    <span class="marquee-item">Bridal Embroidery</span>
+    <span class="marquee-item">Table Runners</span>
+    <span class="marquee-item">Bulk Export Orders</span>
+    <span class="marquee-item">Free Samples Available</span>
+  </div>
+</div>
+<div class="home-about">
+  <div class="ha-img slide-left"><div class="ha-img-inner"></div></div>
+  <div class="ha-text slide-right">
+    <div class="section-label">Our Story</div>
+    <h2 class="section-title">Crafted in Lahore,<br><em>Delivered Worldwide</em></h2>
+    <br>
+    <p>Vintex Traders is a Lahore-based embroidery manufacturing unit with years of hands-on experience producing premium embroidered textiles for both local and international markets.</p>
+    <p>Our strength lies in combining traditional Pakistani craftsmanship with modern machine precision — delivering embroidery that is consistent, beautiful, and export-ready for buyers across the USA, Europe, and the Middle East.</p>
+    <div class="highlights">
+      <div class="hl"><strong>50+</strong><span>Embroidery Machines</span></div>
+      <div class="hl"><strong>USA #1</strong><span>Primary Export Market</span></div>
+      <div class="hl"><strong>15–20</strong><span>Days Turnaround</span></div>
+      <div class="hl"><strong>MOQ 50</strong><span>Low Minimum Order</span></div>
+    </div>
+    <br><br>
+    <a href="about.html" class="btn-o">Read Our Story</a>
+  </div>
+</div>
+<div class="home-products">
+  <div style="display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:1rem;margin-bottom:0;">
+    <div>
+      <div class="section-label">What We Make</div>
+      <h2 class="section-title">Our Product <em>Range</em></h2>
+    </div>
+    <a href="products.html" class="btn-o">View All Products</a>
+  </div>
+  <div class="hp-grid"><div class="hp-card fade-up delay-1">
+      <div class="hp-img">
+        <div class="bg" style="background-image:url('https://images.unsplash.com/photo-1600369671236-cba8e219e5d8?w=600&q=80')"></div>
+        <div class="hp-overlay"><span>View Details &#8594;</span></div>
+      </div>
+      <div class="hp-info">
+        <div class="hp-name">Embroidered Towels & Bath Linen</div>
+        <p class="hp-desc">Luxurious embroidered towels, hand towels, and bath mats. Hotel-grade quality for hospitality and retail importers.</p>
+        <span class="hp-tag">Export Ready</span>
+      </div>
+    </div><div class="hp-card fade-up delay-2">
+      <div class="hp-img">
+        <div class="bg" style="background-image:url('https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=600&q=80')"></div>
+        <div class="hp-overlay"><span>View Details &#8594;</span></div>
+      </div>
+      <div class="hp-info">
+        <div class="hp-name">Bedsheets & Pillow Covers</div>
+        <p class="hp-desc">Embroidered bedsheets, duvet covers, and pillow covers with intricate border designs for home textile importers.</p>
+        <span class="hp-tag">Bulk Available</span>
+      </div>
+    </div><div class="hp-card fade-up delay-3">
+      <div class="hp-img">
+        <div class="bg" style="background-image:url('https://images.unsplash.com/photo-1558769132-cb1aea458c5e?w=600&q=80')"></div>
+        <div class="hp-overlay"><span>View Details &#8594;</span></div>
+      </div>
+      <div class="hp-info">
+        <div class="hp-name">Fashion Fabric Embroidery</div>
+        <p class="hp-desc">Traditional Pakistani motifs and contemporary patterns on fashion fabric for designers and brands.</p>
+        <span class="hp-tag">Custom Design</span>
+      </div>
+    </div><div class="hp-card fade-up delay-4">
+      <div class="hp-img">
+        <div class="bg" style="background-image:url('https://images.unsplash.com/photo-1616401784845-180882ba9ba8?w=600&q=80')"></div>
+        <div class="hp-overlay"><span>View Details &#8594;</span></div>
+      </div>
+      <div class="hp-info">
+        <div class="hp-name">Table Runners & Kitchen Linen</div>
+        <p class="hp-desc">Embroidered table runners, placemats, and napkins. Popular with European home décor buyers.</p>
+        <span class="hp-tag">Home Décor</span>
+      </div>
+    </div><div class="hp-card fade-up delay-5">
+      <div class="hp-img">
+        <div class="bg" style="background-image:url('https://images.unsplash.com/photo-1594938298603-c8148c4b4b8f?w=600&q=80')"></div>
+        <div class="hp-overlay"><span>View Details &#8594;</span></div>
+      </div>
+      <div class="hp-info">
+        <div class="hp-name">Corporate Logo Embroidery</div>
+        <p class="hp-desc">Precision logo embroidery on uniforms, caps, polos, and corporate gifting textiles.</p>
+        <span class="hp-tag">OEM Service</span>
+      </div>
+    </div><div class="hp-card fade-up delay-5">
+      <div class="hp-img">
+        <div class="bg" style="background-image:url('https://images.unsplash.com/photo-1615529182904-14819c35db37?w=600&q=80')"></div>
+        <div class="hp-overlay"><span>View Details &#8594;</span></div>
+      </div>
+      <div class="hp-info">
+        <div class="hp-name">Bridal & Formal Wear</div>
+        <p class="hp-desc">Intricate bridal embroidery for South Asian diaspora markets. Handcrafted feel, machine consistency.</p>
+        <span class="hp-tag">Premium Tier</span>
+      </div>
+    </div></div>
+</div>
+<div class="home-why">
+  <div class="hw-left slide-left">
+    <div class="section-label">Our Edge</div>
+    <h2 class="section-title">Why Buyers Choose<br><em>Vintex</em></h2>
+    <p class="hw-intro">We are not just a manufacturer — we are a growth partner for international importers who need quality, reliability, and flexibility.</p>
+    <br><br>
+    <a href="contact.html" class="btn-o" style="border-color:rgba(200,168,75,0.5);color:var(--gold-l);">Start a Conversation</a>
+  </div>
+  <div class="why-grid slide-right">
+    <div class="wi delay-1"><div class="wi-icon">🎯</div><h4>Factory-Direct Pricing</h4><p>No middlemen. You deal directly with us — better price, faster decisions.</p></div>
+    <div class="wi delay-2"><div class="wi-icon">✏️</div><h4>Custom Designs</h4><p>Send your artwork or logo. We digitize and produce exactly what you need.</p></div>
+    <div class="wi delay-3"><div class="wi-icon">📦</div><h4>Low MOQ</h4><p>Minimum 50 units — perfect for new buyers testing before bulk orders.</p></div>
+    <div class="wi delay-4"><div class="wi-icon">🌍</div><h4>Export Experience</h4><p>We handle documentation and packaging for smooth international delivery.</p></div>
+    <div class="wi delay-5"><div class="wi-icon">🎁</div><h4>Free Samples</h4><p>Serious buyers receive product samples before committing to bulk.</p></div>
+    <div class="wi delay-5"><div class="wi-icon">⚡</div><h4>Fast Turnaround</h4><p>15–20 day production with regular progress updates.</p></div>
+  </div>
+</div>
+<div class="home-cta">
+  <h2>Ready to Place an Order?</h2>
+  <p>Contact us today — we respond within 24 hours. Free samples available for serious buyers.</p>
+  <div class="cta-btns">
+    <a href="contact.html" class="btn-p">Send an Enquiry</a>
+    <a href="https://wa.me/923278666254?text=Hello%2C+I+am+interested+in+your+embroidery+products." class="btn-o" target="_blank">WhatsApp Now</a>
+  </div>
+</div>
+<footer>
+  <div class="footer-inner">
+    <div>
+      <img src="data:image/png;base64,PLACEHOLDER_SIZE_577934" alt="Vintex Traders" class="footer-logo">
+      <p class="footer-tagline">Premium embroidery craftsmanship — from Lahore to the world.</p>
+      <a href="https://wa.me/923278666254?text=Hello%2C+I+am+interested+in+your+embroidery+products." class="wa-footer" target="_blank">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        WhatsApp Us
+      </a>
+    </div>
+    <div class="footer-col">
+      <h5>Navigation</h5>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="products.html">Products</a></li>
+        <li><a href="gallery.html">Gallery</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Products</h5>
+      <ul>
+        <li><a href="products.html">Embroidered Towels</a></li>
+        <li><a href="products.html">Bedsheets &amp; Linen</a></li>
+        <li><a href="products.html">Fashion Fabric</a></li>
+        <li><a href="products.html">Corporate Logos</a></li>
+        <li><a href="products.html">Bridal &amp; Formal</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Contact</h5>
+      <ul>
+        <li><a href="mailto:waleedneem133@gmail.com">waleedneem133@gmail.com</a></li>
+        <li><a href="tel:+923278666254">+92-327-8666254</a></li>
+        <li>Lahore, Punjab, Pakistan</li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&#169; 2025 Vintex Traders &#183; Lahore, Pakistan</p>
+    <p>vintextraders.site</p>
+  </div>
+</footer>
+<script>
+function toggleMenu(){
+  var nl=document.getElementById('navLinks'),h=document.getElementById('ham');
+  nl.classList.toggle('open');h.classList.toggle('x');
+}
+document.addEventListener('DOMContentLoaded',function(){
+  document.querySelectorAll('.nav-links a').forEach(function(a){
+    a.addEventListener('click',function(){
+      document.getElementById('navLinks').classList.remove('open');
+      document.getElementById('ham').classList.remove('x');
+    });
+  });
+  window.addEventListener('scroll',function(){
+    var n=document.getElementById('navbar');
+    n.classList.toggle('scrolled',window.scrollY>60);
+  });
+  // Better scroll animation observer
+  var obs=new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){
+        e.target.classList.add('visible');
+      }
+    });
+  },{threshold:0.08, rootMargin:'0px 0px -40px 0px'});
+  document.querySelectorAll('.fade-up, .slide-left, .slide-right, .scale-in').forEach(function(el){
+    obs.observe(el);
+  });
+});
+</script>
+</body>
+</html>
